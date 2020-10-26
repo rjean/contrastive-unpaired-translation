@@ -306,7 +306,7 @@ class ModulatedConv2d(nn.Module):
         if style is not None:
             style = self.modulation(style).view(batch, 1, in_channel, 1, 1)
         else:
-            style = torch.ones(batch, 1, in_channel, 1, 1).cuda()
+            style = torch.ones(batch, 1, in_channel, 1, 1).to(input.device)
         weight = self.scale * self.weight * style
 
         if self.demodulate:

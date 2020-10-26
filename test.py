@@ -43,6 +43,8 @@ if __name__ == '__main__':
     opt.serial_batches = True  # disable data shuffling; comment this line if results on randomly chosen images are needed.
     opt.no_flip = True    # no flip; comment this line if results on flipped images are needed.
     opt.display_id = -1   # no visdom display; the test code saves the results to a HTML file.
+    if opt.cpu:
+        opt.gpu_ids = []
     dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
     train_dataset = create_dataset(util.copyconf(opt, phase="train"))
     model = create_model(opt)      # create a model given opt.model and other options
@@ -55,7 +57,8 @@ if __name__ == '__main__':
         if i == 0:
             model.data_dependent_initialize(data)
             model.setup(opt)               # regular setup: load and print networks; create schedulers
-            model.parallelize()
+            if len(opt.gpu_ids) > 0:
+                model.parallelize()
             if opt.eval:
                 model.eval()
         if i >= opt.num_test:  # only apply our model to opt.num_test images.
