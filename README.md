@@ -211,6 +211,11 @@ The training takes several hours. To generate the final image using the checkpoi
 python test.py --model sincut --name singleimage_monet_etretat --dataroot ./datasets/single_image_monet_etretat
 ```
 
+If you GPU does not have enough memory, you can always generate the image using the CPU, it will only take a few seconds.
+```bash
+python test.py --cpu --model sincut --name singleimage_monet_etretat --dataroot ./datasets/single_image_monet_etretat
+```
+
 or simply
 
 ```bash
